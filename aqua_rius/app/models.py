@@ -1,0 +1,8 @@
+from django.db import models
+
+# Create your models here.
+
+class Apikey(models.Model):
+    key = models.CharField(max_length = 128)
+
+    
