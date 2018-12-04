@@ -1,0 +1,9 @@
+FROM mysql:5.7
+RUN touch /var/log/mysql/mysqld.log
+COPY my.cnf /etc/mysql/conf.d/my.cnf
+
+RUN rm -rf /var/lib/mysql/*
+
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_ALLOW_EMPTY_PASSWORD=true
+ENV MYSQL_RANDOM_ROOT_PASSWORD=true

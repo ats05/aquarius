@@ -1,0 +1,31 @@
+version: '3'
+services:
+
+  mysql:
+    image: mysql:5.7
+    #build:
+    #  context: .
+    #  dockerfile: Dockerfile-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=aquarius
+      - MYSQL_PASSWORD=aquarius!
+      - MYSQL_DATABASE=aquarius_dev
+      - TZ=UTC
+    volumes:
+      - ./db/mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  application:
+    build:
+      context: .
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./aqua_rius:/var/www
+    working_dir: /var/www
+    command: python manage.py runserver 0.0.0.0:8080
+    tty: true
